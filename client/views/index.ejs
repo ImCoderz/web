@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./index.js" defer></script>
+    <link rel="stylesheet" href="./style.css">    
+    <title>Restaurant</title>
+</head>
+<body>
+    <div class="mainpage">
+        <nav>
+            <div class="nav__logo">
+                <h1>Suushi</h1>
+                <img src="./res/logo.svg" alt="restaurant_logo">
+            </div>
+            <div class="nav__links" title="passive" id="nav__links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/table">Table</a></li>
+                    <li><a href="plats">Plats</a></li>
+                    <li><a href="contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav__menu" id="nav__menu" onclick="change()">
+                <h3>Menu</h3>
+                <img src="./res/menu.png" width="20"  alt="menu">
+            </div>
+            <div class="nav__sign">
+                <a href="sign"><button class="in"><%= locals.name?"":"Sign In"  %> </button></a>
+                <a href="/"><button class="out"><%= locals.name? "Sign Out":"" %> </button></a>
+            </div>
+        </nav>
+        <header>
+            <div class="header__text">
+                <h1>Welcome <%= locals.name  %>  To Our Sushi <br> Restaurant</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem nobis ad, vel ipsa, iure voluptatibus nemo molestiae, saepe labore assumenda architecto natus ab ducimus explicabo accusantium dicta reiciendis modi! Quisquam!Z</p>
+                <button>Contact Us</button>
+            </div>
+        </header>
+    </div>
+    
+</body>
+</html>

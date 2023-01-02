@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="table_style.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="section1" id="section">
+        <div class="section1__text">
+            <h3>Do You Wanna Reserve a Table</h3>
+            <button onclick="showForm()">Click Here</button>
+            <button onclick="get()">Click</button>
+        </div>
+        <div class="section1__image">
+            <img src="./res/table.jpeg" alt="table_image">
+        </div>
+        <div class="section1__form " id="form">
+            <form action="/table" method="post">
+                <h4>Tableclasse</h4>
+
+                <label for="tableclasse1">first</label>
+                <input type="radio" id="tableclasse1" name="tableclasse">
+                <label for="tableclasse2">second</label>
+                <input type="radio" id="tableclasse2" name="tableclasse">
+                <label for="tableclasse3">third</label>
+                <input type="radio" id="tableclasse3" name="tableclasse" checked><br>
+
+
+                <label for="table">Table Number</label>
+
+                <select name="table" id="table">
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="300">300</option>
+                    <option value="400">400</option>
+                    <option value="500">500</option>
+                    <option value="600">600</option>
+                </select><br>
+
+                <label for="name">name:</label>
+                <input type="text" id="name" name="name" placeholder= <%=locals.name || "name" %> ><br>
+
+                <label for="surname">surname:</label>
+                <input type="text" id="surname" name="surname" placeholder=<%=locals.name || "surname" %>><br>
+
+                <label for="idcard">cardId:</label>
+                <input type="text" id="cardId" name="cardId" placeholder=<%=locals.name || "cardId" %>><br>
+
+                <input type="submit">
+
+            </form>
+        </div>
+    </section>
+</body>
+</html>

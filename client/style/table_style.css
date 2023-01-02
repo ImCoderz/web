@@ -1,0 +1,53 @@
+.section1{
+    display: flex;
+    justify-content: space-between;
+    padding: 4rem 4rem;
+    position: relative;
+    height: 100vh;
+    background: url('./res/OIP.jpeg') no-repeat center ;
+    background-size: cover;
+}
+.section1__text{
+    flex: 1;
+}
+.section1 h3{
+    font-size: 60px;
+}
+.section1 button{
+    padding: 1rem 2rem;
+    background-color: greenyellow;
+    cursor: pointer;
+
+}
+.section1 button:hover{
+    background-color: yellow;
+}
+.section1__image {
+    flex: 1;
+}
+.section1__image img{
+    border-radius: 20px;
+    width: 500px;
+}
+.section1__form{
+    background-color: red;
+    box-shadow: 0 0 0 20px black;
+    padding: 1rem;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 0;
+    right: 50%;
+    transform: translate(50%,0%);
+
+}
+.hidden{
+    display: none;
+}
+.section1__form input{
+    padding: 5px;
+    margin: 5px 0;
+}

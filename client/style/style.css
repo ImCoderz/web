@@ -1,0 +1,226 @@
+*{
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+body button{
+    cursor: pointer;
+}
+body button :hover{
+    opacity: 0.7;
+}
+.mainpage{
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('./res/su.jpg');
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+}
+nav{
+    padding: 0 4rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    align-items: center;
+    /* background-color: green; */
+}
+.nav__logo{
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.nav__logo img{
+    width: 40px;
+}
+.nav__links ul {
+    display: flex;
+    gap: 15px;
+    text-decoration: none;
+    list-style: none;
+    align-items: center;
+}
+.nav__links ul li a:hover{
+    color: #F0C43F;
+}
+.nav__links ul li{
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: left;
+}
+.nav__links a{
+    text-decoration: none;
+    color: white;
+}
+.nav__menu{
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-items: center;
+    color: white;
+    gap: 5px;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+.nav__menu h3{
+    font-size: 12px;
+}
+.nav__sign{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+}
+.nav__sign button{
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    color: white;
+}
+.in{
+    background-color: #F0C43F;
+    box-shadow:#F0C43F 2px 2px 2px 4px ;
+}
+.out{
+    background-color:rgba(105, 55, 14, 1) ;
+    box-shadow:rgba(105, 55, 14, 1) 2px 2px 2px 4px ;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    margin-top: 2rem;
+}
+.header__text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+    padding: 5rem 4rem;
+    gap: 20px;
+    text-align: center;
+    
+}
+.header__text h1{
+    font-size: 60px;
+    margin-bottom: 2rem;
+    background:-moz-linear-gradient(90deg, rgba(240, 196, 63, 1) 0%, rgba(105, 55, 14, 1) 52%); 
+
+    /* safari 5.1+,chrome 10+ */
+    background:-webkit-linear-gradient(90deg, rgba(240, 196, 63, 1) 0%, rgba(105, 55, 14, 1) 52%);
+
+    /* opera 11.10+ */
+    background:-o-linear-gradient(90deg, rgba(240, 196, 63, 1) 0%, rgba(105, 55, 14, 1) 52%);
+
+    /* ie 6-9 */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#69370E', endColorstr='#F0C43F', GradientType=0 );
+
+    /* ie 10+ */
+    background:-ms-linear-gradient(90deg, rgba(240, 196, 63, 1) 0%, rgba(105, 55, 14, 1) 52%);
+
+    /* global 94%+ browsers support */
+    background:linear-gradient(90deg, rgba(240, 196, 63, 1) 0%, rgba(105, 55, 14, 1) 52%);
+    -webkit-background-clip: text;
+  /* Make the text fill color value transparent so the masked background color comes through */
+  -webkit-text-fill-color: transparent;
+    box-shadow: 10px 10px 1002px 5px wheat;
+    width: fit-content;
+}
+.header__text p{
+    font-size: 18px;
+    padding-right: 1rem;
+    color: white;
+    width: 70%;
+}
+.header__text button{
+    padding: 1.3rem 3rem;
+    background-color: #F0C43F;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    margin-top: 1rem;
+    align-self: center;
+}
+.header__image{
+    flex: 1;
+}
+.header__image img{
+    width: 500px;
+}
+
+
+
+
+@media (max-width:600px) {
+    nav{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        
+    }
+    .nav__links{
+        width: 100%;
+    }
+    .nav__links ul{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        width: 100%;
+
+    }
+    .nav__links ul li{
+        padding: 0;
+        width: 100%;
+        padding: 10px 0;
+    }
+    .nav__menu{
+        display: flex;
+    }
+    .nav__links[title='passive']{
+        display: none;
+    }
+    .nav__links[title='active']{
+        display: flex;
+    }
+}
+@media (max-width:900px) {
+    .header__image img{
+        width: 300px;
+    }
+}
+@media (max-width:750px) {
+    header{
+        flex-direction: column;
+    }
+    .header__image img{
+        width: 400px;
+    }
+    .header__text{
+        padding: 10px 50px;
+    }
+}
+
+
+
+@keyframes bounce {
+    0%, 75% {
+        transform: translateY(-25%);
+        animation-timing-function: cubic-bezier(0.8,0,1,1);
+    }
+    50%,100% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0,0,0.2,1);
+    }
+  }
+  .bounce {
+    animation: bounce 1s ;
+  }
