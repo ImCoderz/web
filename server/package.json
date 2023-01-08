@@ -15,7 +15,6 @@
     "passport-local": "^1.0.0"
   },
   "scripts": {
-    "start": "nodemon server.js",
-    "create": "node createdb.js"
+    "start": "node createdb.js"
   }
 }

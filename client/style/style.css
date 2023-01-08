@@ -94,18 +94,21 @@ nav{
 }
 header{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 10px;
     align-items: center;
     margin-top: 2rem;
 }
 .header__text{
     display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-0%,20%);
     justify-content: center;
     align-items: center;
     flex-direction: column;
     flex: 1;
-    padding: 5rem 4rem;
+    padding: 1rem 1rem;
     gap: 20px;
     text-align: center;
     
@@ -136,9 +139,15 @@ header{
     width: fit-content;
 }
 .header__text p{
-    font-size: 18px;
+    font-size: 20px;
     padding-right: 1rem;
     color: white;
+    width: 70%;
+}
+.header__text h3{
+    font-size: 25px;
+    padding-right: 1rem;
+    color: rgba(240, 196, 63, 1);
     width: 70%;
 }
 .header__text button{

@@ -17,10 +17,17 @@
             </div>
             <div class="nav__links" title="passive" id="nav__links">
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/table">Table</a></li>
-                    <li><a href="plats">Plats</a></li>
-                    <li><a href="contact">Contact</a></li>
+                    <% if(locals.id) {%> 
+                        <li><a href=<%='/'+ locals.id %>>Home</a></li>
+                        <li><a href=<%='/table?id='+ locals.id %>>Table</a></li>
+                        <li><a href=<%='/burger?id='+ locals.id %>>Burger</a></li>
+                        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=hellonewtest9@gmail.com" target="_blank">Contact</a></li>
+                    <% }else{%>  
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/table">Table</a></li>
+                        <li><a href="/burger">Burger</a></li>
+                        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=hellonewtest9@gmail.com" target="_blank">Contact</a></li>
+                    <%}%>
                 </ul>
             </div>
             <div class="nav__menu" id="nav__menu" onclick="change()">
@@ -28,15 +35,19 @@
                 <img src="./res/menu.png" width="20"  alt="menu">
             </div>
             <div class="nav__sign">
-                <a href="sign"><button class="in"><%= locals.name?"":"Sign In"  %> </button></a>
-                <a href="/"><button class="out"><%= locals.name? "Sign Out":"" %> </button></a>
+                <% if(locals.name) {%> 
+                    <a href="/"><button class="out">Sign Out</button></a>
+                <% }else{%>  
+                    <a href="sign"><button class="in">Sign In</button></a>
+                <%}%>
             </div>
         </nav>
         <header>
             <div class="header__text">
                 <h1>Welcome <%= locals.name  %>  To Our Sushi <br> Restaurant</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem nobis ad, vel ipsa, iure voluptatibus nemo molestiae, saepe labore assumenda architecto natus ab ducimus explicabo accusantium dicta reiciendis modi! Quisquam!Z</p>
-                <button>Contact Us</button>
+                <h3>Delecious,Nutritious,Protein Packed.</h3>
+                <p>Our easy-to-modify menu is full of healthy alternatives to your favorite flavors</p>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=hellonewtest9@gmail.com" target="_blank"><button>Contact Us</button></a>
             </div>
         </header>
     </div>

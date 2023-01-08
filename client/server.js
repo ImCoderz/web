@@ -1,44 +1,52 @@
 const express=require('express')
-const fs =require('fs')
 const app=express()
-const mysql=require('mysql')
 const bodyParcel=require('body-parser')
 const cors=require('cors')
-let id=0;
-
-const db=mysql.createPool({
-    host:"localhost",
-    user:"root",
-    password:"password",
-    connectionLimit:10,
-    insecureAuth : true
-})
-
+const flash=require('express-flash')
+const session=require('express-session')
+const passport =require('passport')
+const methodOverride = require('method-override')
+const db = require('../server/db')
 
 app.set('view engine','ejs')
 
 
+//middleware
+
+app.use(flash())
+app.use(express.static(__dirname+'/public'))
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}))
+
 app.use(bodyParcel.urlencoded({extended:true}))
 app.use(cors());
 app.use(express.json())
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
+let users=[];
+//database
 
+db.query(`select * from web.users`,(err ,result)=>{
+    users=[...result]
+})
 
-app.listen(3002,()=>{
+//server
+app.listen(3003,()=>{
     console.log('ruuuuun');
 })
 
-// app.get('/',(req,res)=>{
-//     db.query(`select * from hollywood.film`,(err, result)=>{
-//         if(err) return err;
-//         res.send(result)
-//     })
-// })
+//home page
 
+app.get('/',(req,res)=>{
+    console.log(users);
+    res.render("index")
+})
 
-
-
-
-app.get(['/style.css','/style.css/:id'],(req,res)=>{
+app.get('/style.css',(req,res)=>{
     res.sendFile(__dirname + '/style/style.css');
 })
 
@@ -58,6 +66,9 @@ app.get('/res/suu.png',(req,res)=>{
 app.get('/res/su.jpg',(req,res)=>{
     res.sendFile(__dirname+'/res/su.jpg')
 })
+app.get('/res/new.jpg',(req,res)=>{
+    res.sendFile(__dirname+'/res/new.jpg')
+})
 app.get('/res/table.jpeg',(req,res)=>{
     res.sendFile(__dirname+'/res/table.jpeg')
 })
@@ -65,95 +76,127 @@ app.get('/res/OIP.jpeg',(req,res)=>{
     res.sendFile(__dirname+'/res/OIP.jpeg')
 })
 
+//signin 
 
 
-app.get('/table',(req,res)=>{
-    // res.sendFile(__dirname+'/html/table.html');
-    db.query(`select * from web.users`,(err,result)=>{
-        const rf=result.filter((r)=>r.id==id)
-        console.log(rf);
-        res.render("table")
+app.get('/sign',(req,res)=>{
+    db.query(`select * from web.users`,(err ,result)=>{
+        users=[...result]
     })
-})
-app.get('/table_style.css',(req,res)=>{
-    res.sendFile(__dirname+'/style/table_style.css')
-})
-
-
-
-
-app.get('/plats',(req,res)=>{
-    
-    res.sendFile(__dirname+'/html/plats.html');
-})
-app.get('/plats_style.css',(req,res)=>{
-    res.sendFile(__dirname+'/style/plats_style.css')
-})
-
-
-app.get('/contact',(req,res)=>{
-    res.sendFile(__dirname+'/html/contact.html');
-})
-app.get('/contact_style.css',(req,res)=>{
-    res.sendFile(__dirname+'/style/contact_style.css')
-})
-
-app.get("/sign",(req,res)=>{
-    res.sendFile(__dirname+'/html/sign.html')
     res.render('sign')
 })
-
-
+app.get("/signin_style.css",(req,res)=>{
+    res.sendFile(__dirname + '/style/signin_style.css');
+})
 app.post('/sign',(req,res)=>{
     const email =req.body.email;
     const code=req.body.password;
-    const name=req.body.name
-    console.log(`${email}__${code}`);
-    db.query(`select * from web.users `,(err,result)=>{
-        let id=0;
+    let k=0
+    users.map((user)=>{
+        if(user.email==email && user.password==code){
+            k=1
+            res.render('index' ,user)
+        };
+    })
+    if(k==0) res.render('sign')
+})
+
+//table
+let id_user=0;
+
+app.get('/table',(req,res)=>{
+    if(req.query.id){
+        id_user =req.query.id
+        res.render("table",{id:req.query.id})
+    }
+    else{
+        res.render("sign")
+    }
+})
+
+
+app.get("/table_style.css",(req,res)=>{
+    res.sendFile(__dirname + '/style/table_style.css');
+})
+app.get('/send.js',(req,res)=>{
+    res.sendFile(__dirname+'/js/send.js')
+})
+
+app.post('/table',(req,res)=>{
+    let reservations=[]
+    db.query(`select * from web.reservation`,async(err ,result)=>{
         console.log(result);
-        if(err) return err;
-        else{
-           result.map((r)=>{
-                if(r.email==email && r.code==code){
-                    id=r.id
-                    res.redirect(`/${id}?name=${name}`)
-                };
-           })
-           if(id==0) res.render('sign',{name:name,email:email});
+        reservations=[...result]
+        const id=reservations.length+1
+        const day=req.body.days
+        const hour=req.body.hours
+        const phone=req.body.phoneNumber
+        const hPerson=req.body.hPerson
+        console.log(req.query);
+        values =[[id,day,hour,phone,hPerson,id_user]]
+        let r=0
+        reservations.map((reserv)=>{
+            if(reserv.day ==day && reserv.hour==hour ) r=1
+        })
+        if(r==0){
+            db.query('insert into web.reservation values ?',[values],(err,result)=>{
+                if(err)console.log(err);
+                else console.log(result);
+            })
+            users.map((user)=>{
+                if(user.id==id_user){
+                    setTimeout(()=>{
+                        res.render('index' ,user)
+                    },3000)
+                }
+            })
+        }
+        else res.render('table',{'msg':"It is Already Reserved Please Chooose Another Time"})
+    })
+})
+
+//register
+
+app.get('/register',(req,res)=>{
+    res.render('register')
+})
+app.get("/signup_style.css",(req,res)=>{
+    res.sendFile(__dirname + '/style/signup_style.css');
+})
+
+
+app.post('/register',async (req,res)=>{
+    try {
+        const values=[[users.length+1,req.body.email,req.body.password,req.body.name]]
+        db.query("insert into web.users values ? ",[values],(err,result)=>{
+            
+        })
+        res.redirect('/sign')
+    } catch (error) {
+        res.redirect('/register')
+    }
+})
+//burger
+app.get('/burger',(req,res)=>{
+    const user=users.filter((user)=>user.id==req.query.id)
+    console.log(user);
+    res.render('burger',user[0])
+})
+app.get('/burger.css',(req,res)=>{
+    res.sendFile(__dirname+'/style/burger.css')
+})
+app.get('/burger.js',(req,res)=>{
+    res.sendFile(__dirname+'/js/burger.js')
+})
+app.get('/res/giphy.gif',(req,res)=>{
+    res.sendFile(__dirname+'/res/giphy.gif')
+})
+
+app.get('/:id',(req,res)=>{
+    users.map((user)=>{
+        if(user.id==req.params.id){
+            res.render('index',user)
         }
     })
 })
 
-app.get(['/','/:id'], (req, res) => {
-    // console.log(req.user);
-    // res.sendFile(__dirname + '/html/index.html');
-    id=req.params.id;
-    res.render('index',{name:req.query.name})
-});
-
-
-app.param("id",(req,res,next,id)=>{
-    req.userId=id;
-    next()
-})
-
-
-
-app.get('/hello',(req,res)=>{
-    db.query(`select * from music.music`,(err, result)=>{
-        if(err) return err;
-        res.send(result)
-    })
-})
-
-app.post('/',(req,res)=>{
-    console.log(req.body);
-    res.redirect("/")
-    res.send("hello world")
-})
-
-app.post('/table',(req,res)=>{
-    console.log(req.body);
-
-})

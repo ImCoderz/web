@@ -1,53 +1,106 @@
-.section1{
-    display: flex;
-    justify-content: space-between;
-    padding: 4rem 4rem;
-    position: relative;
-    height: 100vh;
-    background: url('./res/OIP.jpeg') no-repeat center ;
-    background-size: cover;
-}
-.section1__text{
-    flex: 1;
-}
-.section1 h3{
-    font-size: 60px;
-}
-.section1 button{
-    padding: 1rem 2rem;
-    background-color: greenyellow;
-    cursor: pointer;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
-.section1 button:hover{
-    background-color: yellow;
+body{
+    font-family: 'Poppins', sans-serif;
 }
-.section1__image {
-    flex: 1;
-}
-.section1__image img{
-    border-radius: 20px;
-    width: 500px;
-}
-.section1__form{
-    background-color: red;
-    box-shadow: 0 0 0 20px black;
-    padding: 1rem;
-    width: 400px;
-    height: 400px;
+.section1{
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../res/su.jpg") center/cover no-repeat;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    position: absolute;
-    top: 0;
-    right: 50%;
-    transform: translate(50%,0%);
-
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding-bottom: 20px;
 }
-.hidden{
-    display: none;
+.section1 h2{
+    font-size: 60px;
+    margin-bottom: 2rem;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#69370E', endColorstr='#F0C43F', GradientType=0 );
+    background:linear-gradient(90deg, rgba(240, 196, 63, 1) 0%, rgb(143, 65, 2) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
-.section1__form input{
+.card-container{
+    display: grid;
+    grid-template-columns: 500px 500px;
+}
+.card-img{
+    background: url("../res/table.jpeg") center/cover no-repeat;
+}
+.card2-img{
+    background: url("../res/giphy.gif") center/cover no-repeat;
+}
+.card-content{
+    background: #fff;
+    height: 330px;
+}
+.card-content h3{
+    text-align: center;
+    color: #000;
+    padding: 25px 0 10px 0;
+    font-size: 26px;
+    font-weight: 500;
+}
+.form-row{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+.book{
+    width: fit-content;
+}
+form select, form input{
+    display: block;
+    width: 100%;
+    margin: 15px 12px;
     padding: 5px;
-    margin: 5px 0;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-weight: 300;
+}
+form input, form input::placeholder, select{
+    color: #9a9a9a;
+}
+form button{
+    border: none;
+    width: 100%;
+    /* width: 375px;*/
+    height: 50px; 
+    color: #fff;
+    background: #f2745f;
+    padding: 12px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+form button:hover{
+    opacity: 0.9;
+    box-shadow: 0 0 20px #f2745f;
+} 
+
+@media(max-width: 992px){
+    .section1 h2{
+        font-size: 40px;
+        text-align: center;
+    }
+    .card-container{
+        margin:0;
+        grid-template-columns: 100%;
+        width: 100vw;
+    }
+    .card-img{
+        height: 330px;
+    }
+    .card2-img{
+        height: 330px;
+    }
 }
